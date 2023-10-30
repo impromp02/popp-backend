@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import Database from 'better-sqlite3';
+import { IMemo } from './memo.interface';
 
 @Injectable()
 export class MemoServie {
@@ -8,8 +9,7 @@ export class MemoServie {
     this._db = new Database(`${process.cwd()}/database/popp.db`);
   }
 
-  getMemo(): any {
-    const row = this._db.prepare('SELECT * FROM memos WHERE id = ?').get(1);
-    return row;
+  getMemo(): IMemo[] {
+    return this._db.prepare('SELECT * FROM memos').all() as IMemo[];
   }
 }
