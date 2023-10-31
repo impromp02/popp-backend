@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import Database from 'better-sqlite3';
 import { IMemo } from './memo.interface';
+import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class MemoServie {
-  private _db: Database.Database;
-  constructor() {
-    this._db = new Database(`${process.cwd()}/database/popp.db`);
+  constructor(private databaseService: DatabaseService) {}
+
+  getAllMemos(): IMemo[] {
+    return this.databaseService.db
+      .prepare('SELECT * FROM memos')
+      .all() as IMemo[];
   }
 
-  getMemo(): IMemo[] {
-    return this._db.prepare('SELECT * FROM memos').all() as IMemo[];
+  getMemoById(id: number): IMemo {
+    return this.databaseService.db
+      .prepare('SELECT * FROM memos WHERE id = ?')
+      .get(id) as IMemo;
   }
 }

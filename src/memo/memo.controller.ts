@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { MemoServie } from './memo.service';
 import { MemoDto } from './memo.dto';
 
@@ -6,9 +6,9 @@ import { MemoDto } from './memo.dto';
 export class MemoController {
   constructor(private memoService: MemoServie) {}
 
-  @Get('all')
-  getMemo(): MemoDto[] {
-    const rows = this.memoService.getMemo();
+  @Get()
+  getAllMemos(): MemoDto[] {
+    const rows = this.memoService.getAllMemos();
     if (rows) {
       return rows.map((s) => ({
         id: s.id,
@@ -22,5 +22,10 @@ export class MemoController {
       }));
     }
     throw Error('failed to fetch memo row');
+  }
+
+  @Get(':id')
+  getMemoById(@Param('id') id: number) {
+    return this.memoService.getMemoById(id);
   }
 }
