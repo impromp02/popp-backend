@@ -1,6 +1,11 @@
 import * as cheerio from 'cheerio';
 import { IScrap } from './scrap.interface';
 
+/**
+ * Using the <meta> elements to get page's properties.
+ * Visit The Open Graph protocol: https://ogp.me/
+ */
+
 export async function scrapFromUrl(url: string): Promise<IScrap> {
   const response = await fetch(url);
   const body = await response.text();

@@ -7,4 +7,5 @@ export class MemoDto {
   dateLastUsed: number;
   flagged: boolean;
   mediaType: string;
+  description: string;
 }

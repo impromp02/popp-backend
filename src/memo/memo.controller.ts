@@ -1,10 +1,10 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { MemoServie } from './memo.service';
+import { MemoService } from './memo.service';
 import { MemoDto } from './memo.dto';
 
-@Controller('memo')
+@Controller('memos')
 export class MemoController {
-  constructor(private memoService: MemoServie) {}
+  constructor(private memoService: MemoService) {}
 
   @Get()
   getAllMemos(): MemoDto[] {
@@ -19,6 +19,7 @@ export class MemoController {
         dateLastUsed: s.date_last_used,
         flagged: Boolean(s.flagged),
         mediaType: s.media_type,
+        description: s.description,
       }));
     }
     throw Error('failed to fetch memo row');
@@ -27,5 +28,10 @@ export class MemoController {
   @Get(':id')
   getMemoById(@Param('id') id: number) {
     return this.memoService.getMemoById(id);
+  }
+
+  @Get('refill/:id')
+  refillMemoById(@Param('id') id: number) {
+    return this.memoService.refillMemoById(id);
   }
 }

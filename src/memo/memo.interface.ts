@@ -7,4 +7,5 @@ export class IMemo {
   date_last_used: number;
   flagged: boolean;
   media_type: string;
+  description: string;
 }

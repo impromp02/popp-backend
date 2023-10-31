@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
-import { MemoServie } from './memo.service';
+import { MemoService } from './memo.service';
 import { MemoController } from './memo.controller';
 import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
   controllers: [MemoController],
-  providers: [MemoServie],
+  providers: [MemoService],
   imports: [DatabaseModule],
-  exports: [MemoServie],
 })
 export class MemoModule {}
