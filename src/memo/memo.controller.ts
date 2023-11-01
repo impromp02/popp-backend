@@ -8,21 +8,18 @@ export class MemoController {
 
   @Get()
   getAllMemos(): MemoDto[] {
-    const rows = this.memoService.getAllMemos();
-    if (rows) {
-      return rows.map((s) => ({
-        id: s.id,
-        title: s.title,
-        url: s.url,
-        source: s.source,
-        dateAdded: s.date_added,
-        dateLastUsed: s.date_last_used,
-        flagged: Boolean(s.flagged),
-        mediaType: s.media_type,
-        description: s.description,
-      }));
-    }
-    throw Error('failed to fetch memo row');
+    const memoEntities = this.memoService.getAllMemos();
+    return memoEntities.map((s) => ({
+      id: s.id,
+      title: s.title,
+      url: s.url,
+      source: s.source,
+      dateAdded: s.date_added,
+      dateLastUsed: s.date_last_used,
+      flagged: Boolean(s.flagged),
+      mediaType: s.media_type,
+      description: s.description,
+    }));
   }
 
   @Get(':id')

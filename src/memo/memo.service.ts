@@ -18,7 +18,7 @@ export class MemoService {
   getAllMemos(): MemoEntity[] {
     try {
       const rows = this.databaseService.db
-        .prepare('SELECT * FROM memos LIMIT 6')
+        .prepare('SELECT * FROM memos LIMIT 10')
         .all() as MemoEntity[];
       return rows.map((s) => new MemoEntity(s));
     } catch (error) {
