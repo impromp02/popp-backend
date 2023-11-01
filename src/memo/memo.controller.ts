@@ -30,8 +30,8 @@ export class MemoController {
     return this.memoService.getMemoById(id);
   }
 
-  @Get('refill/:id')
+  @Get('update/:id')
   refillMemoById(@Param('id') id: number) {
-    return this.memoService.refillMemoById(id);
+    return this.memoService.updateMemoById(id);
   }
 }
