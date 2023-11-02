@@ -4,11 +4,11 @@ export class MemoEntity {
   url: string;
   source: string;
   date_added: number;
-  date_last_used: number;
+  date_last_used?: number;
   flagged: boolean;
   media_type: string;
-  description: string;
-  image: Blob;
+  description?: string;
+  image?: Buffer;
 
   constructor({
     id,
@@ -16,11 +16,11 @@ export class MemoEntity {
     url,
     source,
     date_added,
-    date_last_used,
+    date_last_used = null,
     flagged,
     media_type,
-    description,
-    image,
+    description = null,
+    image = null,
   }) {
     this.id = id;
     this.title = title;

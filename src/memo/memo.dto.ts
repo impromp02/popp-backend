@@ -1,11 +1,14 @@
+import { Buffer } from 'node:buffer';
+
 export class MemoDto {
   id: number;
   title: string;
   url: string;
   source: string;
   dateAdded: number;
-  dateLastUsed: number;
+  dateLastUsed?: number;
   flagged: boolean;
   mediaType: string;
-  description: string;
+  description?: string;
+  image?: Buffer;
 }

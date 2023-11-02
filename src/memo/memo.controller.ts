@@ -19,16 +19,30 @@ export class MemoController {
       flagged: Boolean(s.flagged),
       mediaType: s.media_type,
       description: s.description,
+      image: s?.image,
     }));
   }
 
   @Get(':id')
-  getMemoById(@Param('id') id: number) {
-    return this.memoService.getMemoById(id);
+  getMemoById(@Param('id') id: number): MemoDto {
+    const memoEntity = this.memoService.getMemoById(id);
+    return {
+      id: memoEntity.id,
+      title: memoEntity.title,
+      url: memoEntity.url,
+      source: memoEntity.source,
+      dateAdded: memoEntity.date_added,
+      dateLastUsed: memoEntity.date_last_used,
+      flagged: Boolean(memoEntity.flagged),
+      mediaType: memoEntity.media_type,
+      description: memoEntity.description,
+      image: memoEntity.image,
+    };
   }
 
   @Get('update/:id')
-  refillMemoById(@Param('id') id: number) {
-    return this.memoService.updateMemoById(id);
+  async refillMemoById(@Param('id') id: number): Promise<boolean> {
+    const isUpdated: boolean = await this.memoService.updateMemoById(id);
+    return isUpdated;
   }
 }
