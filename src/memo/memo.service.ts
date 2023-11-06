@@ -3,9 +3,10 @@ import { MemoEntity } from './memo.interface';
 import { DatabaseService } from 'src/database/database.service';
 import {
   IScrap,
-  imageUrlToBlob,
+  fetchImage,
   fetchOGMetadata,
   SQLiteDatabaseException,
+  convertToWebp,
 } from 'src/utils';
 import { MediaType } from './enums';
 import { Buffer } from 'node:buffer';
@@ -40,16 +41,20 @@ export class MemoService {
   async updateMemoById(id: number): Promise<boolean> {
     try {
       const memo = this.getMemoById(id);
+
       let properties: IScrap = null;
+      let imageBuffer: Buffer = null;
+
       if (memo.url) {
         properties = await fetchOGMetadata(memo.url);
       }
 
-      let imageBuffer: Buffer = null;
-      try {
-        const imageBuff = await imageUrlToBlob(properties.ogImage);
-        imageBuffer = Buffer.from(imageBuff);
-      } catch {}
+      if (properties.ogImage) {
+        try {
+          const image = await fetchImage(properties.ogImage);
+          imageBuffer = await convertToWebp(image);
+        } catch {}
+      }
 
       const info = this.databaseService.db
         .prepare(
