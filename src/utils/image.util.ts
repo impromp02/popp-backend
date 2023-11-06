@@ -1,9 +1,9 @@
 import { BadGatewayException } from '@nestjs/common';
 
-export async function imageUrlToBlob(url: string): Promise<Blob> {
+export async function imageUrlToBlob(url: string): Promise<ArrayBuffer> {
   try {
     const response = await fetch(url);
-    const blob = await response.blob();
+    const blob = await response.arrayBuffer();
     return blob;
   } catch (error) {
     throw new BadGatewayException(error.message, {

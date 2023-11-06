@@ -19,14 +19,14 @@ export class MemoController {
       flagged: Boolean(s.flagged),
       mediaType: s.media_type,
       description: s.description,
-      image: s?.image,
+      image: s.image?.toString('base64'),
     }));
   }
 
   @Get(':id')
   getMemoById(@Param('id') id: number): MemoDto {
     const memoEntity = this.memoService.getMemoById(id);
-    return {
+    const response = {
       id: memoEntity.id,
       title: memoEntity.title,
       url: memoEntity.url,
@@ -36,8 +36,9 @@ export class MemoController {
       flagged: Boolean(memoEntity.flagged),
       mediaType: memoEntity.media_type,
       description: memoEntity.description,
-      image: memoEntity.image,
+      image: memoEntity.image.toString('base64'),
     };
+    return response;
   }
 
   @Get('update/:id')

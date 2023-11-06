@@ -1,5 +1,3 @@
-import { Buffer } from 'node:buffer';
-
 export class MemoDto {
   id: number;
   title: string;
@@ -10,5 +8,5 @@ export class MemoDto {
   flagged: boolean;
   mediaType: string;
   description?: string;
-  image?: Buffer;
+  image?: string;
 }

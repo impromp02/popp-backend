@@ -45,15 +45,10 @@ export class MemoService {
         properties = await fetchOGMetadata(memo.url);
       }
 
-      // console.log({ memo });
-      // console.log({ properties });
-
       let imageBuffer: Buffer = null;
       try {
-        const imageBlob = await imageUrlToBlob(properties.ogImage);
-        imageBuffer = Buffer.from(await imageBlob.arrayBuffer());
-        console.log(imageBlob);
-        // console.log({ imageBuffer });
+        const imageBuff = await imageUrlToBlob(properties.ogImage);
+        imageBuffer = Buffer.from(imageBuff);
       } catch {}
 
       const info = this.databaseService.db
